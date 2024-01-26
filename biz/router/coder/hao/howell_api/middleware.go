@@ -25,3 +25,8 @@ func _createcpsrebatediscountsMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _getcpsrebatediscountsMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}

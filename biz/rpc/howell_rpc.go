@@ -37,3 +37,17 @@ func MGetCpsRebateDiscounts(ctx context.Context, req *howell_rpc.MGetCpsRebateDi
 
 	return resp.EntityMap, nil
 }
+
+func QueryCpsRebateDiscounts(ctx context.Context, req *howell_rpc.QueryCpsRebateDiscountsRequest) ([]*models.CpsRebateDiscounts, *models.Pagination, error) {
+	c, err := howellrpcservice.NewClient("coder.hao.howell_rpc", client.WithHostPorts("127.0.0.1:8888"))
+	if err != nil {
+		return nil, nil, err
+	}
+
+	resp, err := c.QueryCpsRebateDiscounts(ctx, req, callopt.WithRPCTimeout(3*time.Second))
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return resp.ItemList, resp.Pagination, nil
+}

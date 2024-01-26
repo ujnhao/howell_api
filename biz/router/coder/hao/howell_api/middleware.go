@@ -30,3 +30,18 @@ func _getcpsrebatediscountsMw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _querycpsrebatediscountsMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _howellMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _v1Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}

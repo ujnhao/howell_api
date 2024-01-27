@@ -3,25 +3,14 @@ package service
 import (
 	"context"
 	"howell/howell_api/biz/model/coder/hao/howell_api"
+	"howell/howell_api/biz/model/converters"
 	api_models "howell/howell_api/biz/model/models"
 	"howell/howell_api/biz/rpc"
 	"howell/howell_api/kitex_gen/coder/hao/howell_rpc"
-	rpc_common "howell/howell_api/kitex_gen/common"
-	rpc_models "howell/howell_api/kitex_gen/models"
 )
 
 func CreateCpsRebateDiscounts(ctx context.Context, req *api_models.CpsRebateDiscounts) (data *howell_api.CreateCpsRebateDiscountsData, err error) {
-	rpcCRD := &rpc_models.CpsRebateDiscounts{
-		Id:       req.ID,
-		AppId:    req.AppID,
-		Name:     req.Name,
-		CpsType:  (*rpc_common.CpsType)(req.CpsType),
-		ActTpye:  (*rpc_common.ActType)(req.ActTpye),
-		ActUrl:   req.ActURL,
-		Images:   req.Images,
-		Resource: req.Resource,
-		Extra:    req.Extra,
-	}
+	rpcCRD := converters.ConvCRDAPIToRPC(req)
 	rpcReq := &howell_rpc.CreateCpsRebateDiscountsRequest{
 		CRDEntity: rpcCRD,
 	}
@@ -33,4 +22,18 @@ func CreateCpsRebateDiscounts(ctx context.Context, req *api_models.CpsRebateDisc
 	return &howell_api.CreateCpsRebateDiscountsData{
 		EntityID: resp.EntityId,
 	}, nil
+}
+
+func UpdateCpsRebateDiscounts(ctx context.Context, req howell_api.UpdateCpsRebateDiscountsRequest) error {
+	rpcCRD := converters.ConvCRDAPIToRPC(req.CrdEntity)
+	rpcReq := &howell_rpc.UpdateCpsRebateDiscountsRequest{
+		EntityId:  req.GetEntityID(),
+		CRDEntity: rpcCRD,
+	}
+	err := rpc.UpdateCpsRebateDiscounts(ctx, rpcReq)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

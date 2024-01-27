@@ -45,3 +45,8 @@ func _v1Mw() []app.HandlerFunc {
 	// your code...
 	return nil
 }
+
+func _updatecpsrebatediscountsMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}

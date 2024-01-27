@@ -28,6 +28,7 @@ func Register(r *server.Hertz) {
 					_cps_rebate_discounts.POST("/create", append(_createcpsrebatediscountsMw(), howell_api.CreateCpsRebateDiscounts)...)
 					_cps_rebate_discounts.GET("/get", append(_getcpsrebatediscountsMw(), howell_api.GetCpsRebateDiscounts)...)
 					_cps_rebate_discounts.POST("/query", append(_querycpsrebatediscountsMw(), howell_api.QueryCpsRebateDiscounts)...)
+					_cps_rebate_discounts.POST("/update", append(_updatecpsrebatediscountsMw(), howell_api.UpdateCpsRebateDiscounts)...)
 				}
 			}
 		}

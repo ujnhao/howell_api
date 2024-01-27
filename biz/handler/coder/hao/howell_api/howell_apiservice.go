@@ -34,6 +34,27 @@ func CreateCpsRebateDiscounts(ctx context.Context, c *app.RequestContext) {
 	c.JSON(consts.StatusOK, resp)
 }
 
+// UpdateCpsRebateDiscounts .
+// @router /api/howell/v1/cps_rebate_discounts/update [POST]
+func UpdateCpsRebateDiscounts(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req howell_api.UpdateCpsRebateDiscountsRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+
+	err = service.UpdateCpsRebateDiscounts(ctx, req)
+	if err != nil {
+		c.String(consts.StatusBadRequest, err.Error())
+		return
+	}
+
+	resp := new(howell_api.UpdateCpsRebateDiscountsResponse)
+	c.JSON(consts.StatusOK, resp)
+}
+
 // GetCpsRebateDiscounts .
 // @router /api/cps_rebate_discounts/get [GET]
 func GetCpsRebateDiscounts(ctx context.Context, c *app.RequestContext) {

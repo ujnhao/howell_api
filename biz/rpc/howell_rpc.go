@@ -11,13 +11,18 @@ import (
 	"time"
 )
 
-func CreateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.CreateCpsRebateDiscountsRequest) (resp *howell_rpc.CreateCpsRebateDiscountsResponse, err error) {
-	c, err := howellrpcservice.NewClient("coder.hao.howell_rpc", client.WithHostPorts("127.0.0.1:8888"))
-	if err != nil {
-		return nil, err
-	}
+var howellRpc howellrpcservice.Client
 
-	resp, err = c.CreateCpsRebateDiscounts(ctx, req, callopt.WithRPCTimeout(3*time.Second))
+func initHowellRpcService() {
+	var err error
+	howellRpc, err = howellrpcservice.NewClient("coder.hao.howell_rpc", client.WithHostPorts("127.0.0.1:8888"))
+	if err != nil {
+		panic(err)
+	}
+}
+
+func CreateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.CreateCpsRebateDiscountsRequest) (resp *howell_rpc.CreateCpsRebateDiscountsResponse, err error) {
+	resp, err = howellRpc.CreateCpsRebateDiscounts(ctx, req, callopt.WithRPCTimeout(3*time.Second))
 	if err != nil {
 		return nil, err
 	}
@@ -25,13 +30,16 @@ func CreateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.CreateCpsReba
 	return resp, nil
 }
 
-func MGetCpsRebateDiscounts(ctx context.Context, req *howell_rpc.MGetCpsRebateDiscountsRequest) (res map[string]*models.CpsRebateDiscounts, err error) {
-	c, err := howellrpcservice.NewClient("coder.hao.howell_rpc", client.WithHostPorts("127.0.0.1:8888"))
+func UpdateCpsRebateDiscounts(ctx context.Context, req *howell_rpc.UpdateCpsRebateDiscountsRequest) error {
+	_, err := howellRpc.UpdateCpsRebateDiscounts(ctx, req, callopt.WithRPCTimeout(3*time.Second))
 	if err != nil {
-		return nil, err
+		return err
 	}
+	return nil
+}
 
-	resp, err := c.MGetCpsRebateDiscounts(ctx, req, callopt.WithRPCTimeout(3*time.Second))
+func MGetCpsRebateDiscounts(ctx context.Context, req *howell_rpc.MGetCpsRebateDiscountsRequest) (res map[string]*models.CpsRebateDiscounts, err error) {
+	resp, err := howellRpc.MGetCpsRebateDiscounts(ctx, req, callopt.WithRPCTimeout(3*time.Second))
 	if err != nil {
 		return nil, err
 	}
@@ -40,12 +48,7 @@ func MGetCpsRebateDiscounts(ctx context.Context, req *howell_rpc.MGetCpsRebateDi
 }
 
 func QueryCpsRebateDiscounts(ctx context.Context, req *howell_rpc.QueryCpsRebateDiscountsRequest) ([]*models.CpsRebateDiscounts, *common.Pagination, error) {
-	c, err := howellrpcservice.NewClient("coder.hao.howell_rpc", client.WithHostPorts("127.0.0.1:8888"))
-	if err != nil {
-		return nil, nil, err
-	}
-
-	resp, err := c.QueryCpsRebateDiscounts(ctx, req, callopt.WithRPCTimeout(3*time.Second))
+	resp, err := howellRpc.QueryCpsRebateDiscounts(ctx, req, callopt.WithRPCTimeout(3*time.Second))
 	if err != nil {
 		return nil, nil, err
 	}

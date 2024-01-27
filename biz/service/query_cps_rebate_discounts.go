@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"howell/howell_api/biz/model/coder/hao/howell_api"
+	api_common "howell/howell_api/biz/model/common"
 	"howell/howell_api/biz/model/converters"
 	api_models "howell/howell_api/biz/model/models"
 	"howell/howell_api/biz/rpc"
@@ -27,6 +28,6 @@ func QueryCpsRebateDiscounts(ctx context.Context, req howell_api.QueryCpsRebateD
 		apiItemList = append(apiItemList, apiItem)
 	}
 	data.ItemList = apiItemList
-	data.Pagination = (*api_models.Pagination)(pagination)
+	data.Pagination = (*api_common.Pagination)(pagination)
 	return data, nil
 }

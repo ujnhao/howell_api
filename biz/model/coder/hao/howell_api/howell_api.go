@@ -6,6 +6,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/apache/thrift/lib/go/thrift"
+	"howell/howell_api/biz/model/common"
 	"howell/howell_api/biz/model/models"
 )
 
@@ -1416,7 +1417,7 @@ func (p *QueryCpsRebateDiscountsRequest) String() string {
 
 type QueryCpsRebateDiscountsData struct {
 	ItemList   []*models.CpsRebateDiscounts `thrift:"item_list,1,optional" form:"item_list" json:"item_list,omitempty" query:"item_list"`
-	Pagination *models.Pagination           `thrift:"pagination,100,required" form:"pagination,required" json:"pagination,required" query:"pagination,required"`
+	Pagination *common.Pagination           `thrift:"pagination,100,required" form:"pagination,required" json:"pagination,required" query:"pagination,required"`
 }
 
 func NewQueryCpsRebateDiscountsData() *QueryCpsRebateDiscountsData {
@@ -1432,9 +1433,9 @@ func (p *QueryCpsRebateDiscountsData) GetItemList() (v []*models.CpsRebateDiscou
 	return p.ItemList
 }
 
-var QueryCpsRebateDiscountsData_Pagination_DEFAULT *models.Pagination
+var QueryCpsRebateDiscountsData_Pagination_DEFAULT *common.Pagination
 
-func (p *QueryCpsRebateDiscountsData) GetPagination() (v *models.Pagination) {
+func (p *QueryCpsRebateDiscountsData) GetPagination() (v *common.Pagination) {
 	if !p.IsSetPagination() {
 		return QueryCpsRebateDiscountsData_Pagination_DEFAULT
 	}
@@ -1546,7 +1547,7 @@ func (p *QueryCpsRebateDiscountsData) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 func (p *QueryCpsRebateDiscountsData) ReadField100(iprot thrift.TProtocol) error {
-	p.Pagination = models.NewPagination()
+	p.Pagination = common.NewPagination()
 	if err := p.Pagination.Read(iprot); err != nil {
 		return err
 	}

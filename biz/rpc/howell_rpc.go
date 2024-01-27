@@ -6,6 +6,7 @@ import (
 	"github.com/cloudwego/kitex/client/callopt"
 	"howell/howell_api/kitex_gen/coder/hao/howell_rpc"
 	"howell/howell_api/kitex_gen/coder/hao/howell_rpc/howellrpcservice"
+	"howell/howell_api/kitex_gen/common"
 	"howell/howell_api/kitex_gen/models"
 	"time"
 )
@@ -38,7 +39,7 @@ func MGetCpsRebateDiscounts(ctx context.Context, req *howell_rpc.MGetCpsRebateDi
 	return resp.EntityMap, nil
 }
 
-func QueryCpsRebateDiscounts(ctx context.Context, req *howell_rpc.QueryCpsRebateDiscountsRequest) ([]*models.CpsRebateDiscounts, *models.Pagination, error) {
+func QueryCpsRebateDiscounts(ctx context.Context, req *howell_rpc.QueryCpsRebateDiscountsRequest) ([]*models.CpsRebateDiscounts, *common.Pagination, error) {
 	c, err := howellrpcservice.NewClient("coder.hao.howell_rpc", client.WithHostPorts("127.0.0.1:8888"))
 	if err != nil {
 		return nil, nil, err
